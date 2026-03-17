@@ -21,7 +21,7 @@ def start():
     print("type of each expense:", type(expenses[0]))
 
     for expense in expenses:
-        print(f"Expense: {expense}, Type: {type(expense)}") 
+        print(f"Expense: {expense}, Type: {type(expense)}")  
 
 def add_expense(expenses, name, amount):
     expense = {"name": name, "amount": amount}
