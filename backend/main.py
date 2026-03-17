@@ -1,3 +1,6 @@
+import datetime
+date = datetime.datetime.now()
+
 def start():
     print("Starting the backend server...")
 
@@ -11,20 +14,26 @@ def start():
     # app.run(debug=True)
     expenses = []
 
-    add_expense(expenses, "Groceries", 150)
-    add_expense(expenses, "Rent", 1200)
-    add_expense(expenses, "Utilities", 200)
+    while True:
+        print("\n1. Add Expense")
+        print("2. View Expenses")
+        print("3. Exit")
+        choice = input("Enter your choice: ")
 
-    print("Current expenses:", get_expenses(expenses))
-    print("typeof expenses:", type(expenses))
-    print("typeof get_expenses:", type(get_expenses(expenses)))
-    print("type of each expense:", type(expenses[0]))
-
-    for expense in expenses:
-        print(f"Expense: {expense}, Type: {type(expense)}")  
+        if choice == '1':
+                name = input("Enter expense name: ")
+                amount = float(input("Enter expense amount: "))
+                add_expense(expenses, name, amount)
+        elif choice == '2':
+                print("Current expenses:", get_expenses(expenses))
+        elif choice == '3':
+                print("Exiting the application.")
+                break
+        else:   
+                print("Invalid choice. Please try again.") 
 
 def add_expense(expenses, name, amount):
-    expense = {"name": name, "amount": amount}
+    expense = {"name": name, "amount": amount, "date": str(date)}
     expenses.append(expense)
     print(f"Added expense: {expense}")    
 
