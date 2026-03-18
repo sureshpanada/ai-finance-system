@@ -1,4 +1,6 @@
 import datetime
+import json
+
 date = datetime.datetime.now()
 
 def start():
@@ -12,7 +14,7 @@ def start():
     # def home():
     #     return "Hello, World!"
     # app.run(debug=True)
-    expenses = []
+    expenses = get_expenses()
 
     while True:
         print("\n1. Add Expense")
@@ -25,7 +27,7 @@ def start():
                 amount = float(input("Enter expense amount: "))
                 add_expense(expenses, name, amount)
         elif choice == '2':
-                print("Current expenses:", get_expenses(expenses))
+                print("Current expenses:", get_expenses())
         elif choice == '3':
                 print("Exiting the application.")
                 break
@@ -35,10 +37,16 @@ def start():
 def add_expense(expenses, name, amount):
     expense = {"name": name, "amount": amount, "date": str(date)}
     expenses.append(expense)
-    print(f"Added expense: {expense}")    
+    with open('expenses.json', 'w') as f:
+        json.dump(expenses, f, indent=4)
+    # print(f"Added expense: {expense}")    
 
-def get_expenses(expenses):
-    return expenses    
+def get_expenses():
+    try:
+        with open('expenses.json', 'r') as f:
+            return json.load(f)
+    except FileNotFoundError:
+        return []
 
 if __name__ == "__main__":
     start()   
